@@ -64,11 +64,13 @@ dd.obj = function($parent, arg) {
 		})
 		.keydown(function(e) {
 			switch (e.keyCode) {
+				case 224: case 91: case 93:
 				case 17: self.keyCtrl = true; break;
 			}
 		})
 		.keyup(function(e) {
 			switch (e.keyCode) {
+				case 224: case 91: case 93:
 				case 17: self.keyCtrl = false; break;
 			}
 		});
