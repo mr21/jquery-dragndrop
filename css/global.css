@@ -4,8 +4,10 @@ a { text-decoration:none; color:inherit; }
 a:hover { text-decoration:underline; }
 
 #global { width:580px; margin:auto }
-h1 { display:inline-block; margin:1em 0; font-size:34px; opacity:0.4; }
-h1 + a { display:inline; margin-left:1em; font-size:14px; font-weight:bold; opacity:0.33; }
+h1 { display:inline-block; margin:1em 0; font-size:34px; color:#666; }
+h1 > * { vertical-align:middle; }
+h1 > a { display:inline; margin-left:1em; font-size:14px; font-weight:bold; opacity:0.6; }
+h1 > div { margin-left:15px; margin-top:-23px; }
 
 .features { margin-top:0; margin-bottom:2em; }
 
