@@ -7,6 +7,8 @@ a:hover { text-decoration:underline; }
 h1 { display:inline-block; margin:1em 0; font-size:34px; opacity:0.4; }
 h1 + a { display:inline; margin-left:1em; font-size:14px; font-weight:bold; opacity:0.33; }
 
+.features { margin-top:0; margin-bottom:2em; }
+
 #dragndrop:after { content: ""; display: block; clear: both; }
 #dragndrop {
 	position: relative;
@@ -14,7 +16,7 @@ h1 + a { display:inline; margin-left:1em; font-size:14px; font-weight:bold; opac
 	margin: auto;
 	padding-bottom: 10px;
 	border-radius: 4px;
-	background: rgba(0,0,0,0.04);
+	background: rgba(0,0,0,0.1);
 }
 
 .jqdnd-drop {
