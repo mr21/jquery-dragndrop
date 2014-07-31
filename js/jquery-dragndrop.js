@@ -1,12 +1,10 @@
 // jQuery call
-var dd = $.fn.dragndrop = function(arg) {
-	return new dd.obj(this, arg);
+$.fn.dragndrop = function(arg) {
+	return new $.fn.dragndrop.obj(this, arg);
 };
 
-dd.CSS_RELATIVE = {left:'0px', top:'0px'};
-
 // Attributs / Events
-dd.obj = function($parent, arg) {
+$.fn.dragndrop.obj = function($parent, arg) {
 	var self = this;
 	this.arg = arg;
 	this.duration = arg.duration || 200;
@@ -78,7 +76,7 @@ dd.obj = function($parent, arg) {
 };
 
 // Methodes
-dd.obj.prototype = {
+$.fn.dragndrop.obj.prototype = {
 	dragDimension: function() {
 		var $drag = $('.jqdnd-drag:first', this.$parent);
 		this.dragW = $drag.width();
@@ -181,7 +179,7 @@ dd.obj.prototype = {
 				marginTop  : '0px'
 			}, self.duration, 'swing', function() {
 				$(this)
-					.css(dd.CSS_RELATIVE)
+					.css({left:'0px', top:'0px'})
 					.insertAfter(this._$prev);
 				this._$prev.remove();
 				if (++i === nbElems) {
