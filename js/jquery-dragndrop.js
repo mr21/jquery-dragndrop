@@ -49,7 +49,7 @@ $.fn.dragndrop.obj = function($parent, arg) {
 			if (self.mouseDrag) {
 				self.dragStop();
 			} else if (!self.keyCtrl) {
-				self.unselect();
+				self.unselectAll();
 			}
 			self.mouseLeft = false;
 		})
@@ -115,25 +115,41 @@ $.fn.dragndrop.obj.prototype = {
 						if ($this.css('position') !== 'absolute')
 							self.mouseLeft = true;
 						if (!self.keyCtrl && !selected)
-							self.unselect();
+							self.unselectAll();
 						if (!selected) {
 							self.stopAnimations();
-							self.elemsSelected.push(this);
-							$this.addClass('selected').html('<span class="jqdnd-dragNumber">' + self.elemsSelected.length + '</span>');
+							self.select(this);
 						} else if (self.keyCtrl) {
 							self.elemsSelected.splice(self.elemsSelected.indexOf(this), 1);
-							$this.removeClass('selected').empty();
-							$.each(self.elemsSelected, function(i) {
-								this.firstChild.textContent = i + 1;
-							});
+							self.unselect($this);
+							$(self.elemsSelected)
+								.children('.jqdnd-dragNumber')
+								.html(function(i) { return i + 1; });
 						}
 					}
 				});
 		}
 	},
 
-	unselect: function() {
-		$(this.elemsSelected).removeClass('selected').empty();
+	select: function(elem) {
+		$(elem)
+			.addClass('selected')
+			.append(
+				'<span class="jqdnd-dragNumber">' +
+					this.elemsSelected.push(elem) +
+				'</span>'
+			);
+	},
+
+	unselect: function(elems) {
+		$(elems)
+			.removeClass('selected')
+			.children('.jqdnd-dragNumber')
+				.remove();
+	},
+
+	unselectAll: function() {
+		this.unselect(this.elemsSelected);
 		this.elemsSelected.length = 0;
 	},
 
