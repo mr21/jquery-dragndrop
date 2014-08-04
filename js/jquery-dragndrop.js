@@ -17,6 +17,7 @@ $.fn.dragndrop.obj = function($parent, arg) {
 	this.dragW = 0;
 	this.dragH = 0;
 	this.keyCtrl = false;
+	this.keyShift = false;
 	this.mouseLeft = false;
 	this.mouseDrag = false;
 	this.mouseX = 0;
@@ -40,6 +41,7 @@ $.fn.dragndrop.obj = function($parent, arg) {
 	$(window)
 		.blur(function() {
 			self.keyCtrl = false;
+			self.keyShift = false;
 			self.mouseLeft = false;
 			self.dragStop();
 		});
@@ -48,7 +50,7 @@ $.fn.dragndrop.obj = function($parent, arg) {
 		.mouseup(function() {
 			if (self.mouseDrag) {
 				self.dragStop();
-			} else if (!self.keyCtrl) {
+			} else if (!self.keyCtrl && !self.keyShift) {
 				self.unselectAll();
 			}
 			self.mouseLeft = false;
@@ -64,15 +66,16 @@ $.fn.dragndrop.obj = function($parent, arg) {
 			switch (e.keyCode) {
 				case 224: case 91: case 93:
 				case 17: self.keyCtrl = true; break;
+				case 16: self.keyShift = true; break;
 			}
 		})
 		.keyup(function(e) {
 			switch (e.keyCode) {
 				case 224: case 91: case 93:
 				case 17: self.keyCtrl = false; break;
+				case 16: self.keyShift = false; break;
 			}
 		});
-
 };
 
 // Methodes
@@ -111,15 +114,34 @@ $.fn.dragndrop.obj.prototype = {
 					e.preventDefault();
 					if (e.button === 0) {
 						var $this = $(this),
+							elems = [],
 							selected = $this.hasClass('selected');
-						if ($this.css('position') !== 'absolute')
+						if ($this.css('position') !== 'absolute') {
 							self.mouseLeft = true;
-						if (!self.keyCtrl && !selected)
-							self.unselectAll();
-						if (!selected) {
 							self.stopAnimations();
-							self.select(this);
-						} else if (self.keyCtrl) {
+						}
+						if (!selected && !self.keyCtrl) {
+							if (self.keyShift && self.elemsSelected.length)
+								elems.push(self.elemsSelected[self.elemsSelected.length - 1]);
+							self.unselectAll();
+						}
+						if (!selected || self.keyShift) {
+							if (self.keyShift) {
+								var elemA = self.elemsSelected[self.elemsSelected.length - 1] || elems[0];
+								if (elemA) {
+									var AInd = $.inArray(elemA, self.$drags),
+										BInd = $.inArray(this, self.$drags),
+										incr = AInd < BInd ? 1 : -1,
+										i = AInd + incr;
+									for (; i !== BInd; i += incr)
+										if (!self.$drags.eq(i).hasClass('selected'))
+											elems.push(self.$drags[i]);
+								}
+							}
+							if (!selected)
+								elems.push(this);
+							self.select(elems);
+						} else if (selected && self.keyCtrl) {
 							self.elemsSelected.splice(self.elemsSelected.indexOf(this), 1);
 							self.unselect($this);
 							$(self.elemsSelected)
@@ -131,14 +153,13 @@ $.fn.dragndrop.obj.prototype = {
 		}
 	},
 
-	select: function(elem) {
-		$(elem)
+	select: function(elems) {
+		var a = this.elemsSelected;
+		$(elems)
 			.addClass('selected')
-			.append(
-				'<span class="jqdnd-dragNumber">' +
-					this.elemsSelected.push(elem) +
-				'</span>'
-			);
+			.append(function() {
+				return '<span class="jqdnd-dragNumber">'+ a.push(this) +'</span>';
+			});
 	},
 
 	unselect: function(elems) {
