@@ -128,7 +128,7 @@ $.fn.dragndrop.obj.prototype = {
 						if (!selected || self.keyShift) {
 							if (self.keyShift) {
 								var elemA = self.elemsSelected[self.elemsSelected.length - 1] || elems[0];
-								if (elemA) {
+								if (elemA !== this) {
 									var	$drags = $('.jqdnd-drag', self.$parent),
 										AInd = $.inArray(elemA, $drags),
 										BInd = $.inArray(this, $drags),
