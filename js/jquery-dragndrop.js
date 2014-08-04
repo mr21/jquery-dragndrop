@@ -129,13 +129,14 @@ $.fn.dragndrop.obj.prototype = {
 							if (self.keyShift) {
 								var elemA = self.elemsSelected[self.elemsSelected.length - 1] || elems[0];
 								if (elemA) {
-									var AInd = $.inArray(elemA, self.$drags),
-										BInd = $.inArray(this, self.$drags),
+									var	$drags = $('.jqdnd-drag', self.$parent),
+										AInd = $.inArray(elemA, $drags),
+										BInd = $.inArray(this, $drags),
 										incr = AInd < BInd ? 1 : -1,
 										i = AInd + incr;
 									for (; i !== BInd; i += incr)
-										if (!self.$drags.eq(i).hasClass('selected'))
-											elems.push(self.$drags[i]);
+										if (!$drags.eq(i).hasClass('selected'))
+											elems.push($drags[i]);
 								}
 							}
 							if (!selected)
