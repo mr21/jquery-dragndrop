@@ -1,5 +1,5 @@
-jQuery - drag 'n' drop
-======================
+jQuery - drag 'n' drop - 1.0
+============================
 
 Le plugin a besoin de ces deux fichiers (en plus de _jquery.js_):
 * [jquery-dragndrop.js](https://github.com/Mr21/jquery-dragndrop/blob/master/js/jquery-dragndrop.js)

@@ -1,9 +1,12 @@
-// jQuery call
+/*
+	jQuery - drag 'n' drop - 1.0
+	https://github.com/Mr21/jquery-dragndrop
+*/
+
 $.fn.dragndrop = function(arg) {
 	return new $.fn.dragndrop.obj(this, arg);
 };
 
-// Attributs / Events
 $.fn.dragndrop.obj = function($parent, arg) {
 	var self = this;
 	this.arg = arg;
