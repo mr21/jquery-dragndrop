@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 1.0
+	jQuery - drag 'n' drop - 1.1
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -35,8 +35,10 @@ $.fn.dragndrop.obj = function($parent, arg) {
 	$parent
 		.on('DOMNodeInserted', function(e) {
 			var $e = $(e.target),
-				drop = $e.hasClass('jqdnd-drop'),
+				drop = $e.hasClass('jqdnd-drop') || $e.find('.jqdnd-drop').length,
 				drag = !e.target._jqdnd_known && $e.hasClass('jqdnd-drag');
+			if (!drag)
+				drag = $e.find('.jqdnd-drag').length;
 			if (drop || drag)
 				self.nodeEvents(drop, drag);
 		});
