@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 1.1
+	jQuery - drag 'n' drop - 1.2
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -277,39 +277,44 @@ $.fn.dragndrop.obj.prototype = {
 			return p.left <= self.mouseX && self.mouseX < p.left + w &&
 			       p.top  <= self.mouseY && self.mouseY < p.top  + h;
 		}
-		this.$drags.each(function() {
-			$this = $(this);
-			var pos = $this.offset();
-			if (mouseIn(pos, self.dragW, self.dragH) &&
-				!$this.hasClass('selected') &&
-				$this.css('position') !== 'absolute')
-			{
-				side = self.mouseX < pos.left + self.dragW / 2;
-				dragA = ( side ? $this.prevAll('.jqdnd-drag').first() : $this)[0];
-				dragB = (!side ? $this.nextAll('.jqdnd-drag').first() : $this)[0];
+		this.$drops.each(function() {
+			var $this = $(this);
+			if (mouseIn($this.offset(), $this.width(), $this.height())) {
+				drop = this;
+				dragA = $this.find('.jqdnd-drag:last')[0];
 				return false;
 			}
 		});
-		if (side === undefined)
-			$('.jqdnd-dragHole').each(function() {
-				$this = $(this);
-				if (mouseIn($this.offset(), $this.width(), self.dragH)) {
-					dragA = $this.prevAll('.jqdnd-drag').first()[0];
-					dragB = $this.nextAll('.jqdnd-drag').first()[0];
-					return side = false;
+		if (drop) {
+			this.$drags.each(function() {
+				if (this.parentNode === drop) {
+					$this = $(this);
+					var pos = $this.offset();
+					if (mouseIn(pos, self.dragW, self.dragH) &&
+						!$this.hasClass('selected') &&
+						$this.css('position') !== 'absolute')
+					{
+						side = self.mouseX < pos.left + self.dragW / 2;
+						dragA = ( side ? $this.prevAll('.jqdnd-drag').first() : $this)[0];
+						dragB = (!side ? $this.nextAll('.jqdnd-drag').first() : $this)[0];
+						return false;
+					}
 				}
 			});
-		if (side !== undefined)
-			drop = (dragA && dragA.parentNode) || (dragB && dragB.parentNode);
-		else
-			this.$drops.each(function() {
-				$this = $(this);
-				if (mouseIn($this.offset(), $this.width(), $this.height())) {
-					dragA = $('.jqdnd-drag:last', this)[0];
-					drop = this;
-					return false;
-				}
-			});
+			if (side === undefined)
+				this.$parent.find('.jqdnd-dragHole').each(function() {
+					if (this.parentNode === drop) {
+						$this = $(this);
+						if (mouseIn($this.offset(), $this.width(), self.dragH)) {
+							dragA = $this.prevAll('.jqdnd-drag').first()[0];
+							dragB = $this.nextAll('.jqdnd-drag').first()[0];
+							return side = false;
+						}
+					}
+				});
+			if (side !== undefined)
+				drop = (dragA && dragA.parentNode) || (dragB && dragB.parentNode);
+		}
 		// Events:ondragover/out, ondropover/out
 		if (this.arg.ondropout  && this.dropOver && drop !== this.dropOver)
 			this.arg.ondropout(this.dropOver);
