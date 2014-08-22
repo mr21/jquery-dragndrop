@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 1.2
+	jQuery - drag 'n' drop - 1.3
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -93,67 +93,68 @@ $.fn.dragndrop.obj.prototype = {
 
 	nodeEvents: function(drop, drag) {
 		if (drop)
-			this.$drops = $('.jqdnd-drop', this.$parent);
+			this.$drops = this.$parent.find('.jqdnd-drop');
 		if (drag) {
 			var self = this;
-			if (this.$drags)
-				this.$drags.off();
-			this.$drags =
-			$('.jqdnd-drag', this.$parent)
+			this.$drags = this.$parent
+				.find('.jqdnd-drag')
 				.each(function() {
-					this._jqdnd_known = true;
-				})
-				.mouseup(function(e) {
-					if (!self.mouseDrag)
-						e.stopPropagation();
-					self.mouseLeft = false;
-				})
-				.mouseleave(function(e) {
-					if (self.mouseLeft && !self.mouseDrag) {
-						self.dragDimension();
-						self.regroup(e);
-						self.mouseDrag = true;
-					}
-				})
-				.mousedown(function(e) {
-					e.preventDefault();
-					if (e.button === 0) {
-						var $this = $(this),
-							elems = [],
-							selected = $this.hasClass('selected');
-						if ($this.css('position') !== 'absolute') {
-							self.mouseLeft = true;
-							self.stopAnimations();
-						}
-						if (!selected && !self.keyCtrl) {
-							if (self.keyShift && self.elemsSelected.length)
-								elems.push(self.elemsSelected[self.elemsSelected.length - 1]);
-							self.unselectAll();
-						}
-						if (!selected || self.keyShift) {
-							if (self.keyShift) {
-								var elemA = self.elemsSelected[self.elemsSelected.length - 1] || elems[0];
-								if (elemA !== this) {
-									var	$drags = $('.jqdnd-drag', self.$parent),
-										AInd = $.inArray(elemA, $drags),
-										BInd = $.inArray(this, $drags),
-										incr = AInd < BInd ? 1 : -1,
-										i = AInd + incr;
-									for (; i !== BInd; i += incr)
-										if (!$drags.eq(i).hasClass('selected'))
-											elems.push($drags[i]);
+					if (!this._jqdnd_known) {
+						this._jqdnd_known = true;
+						$(this)
+							.mouseup(function(e) {
+								if (!self.mouseDrag)
+									e.stopPropagation();
+								self.mouseLeft = false;
+							})
+							.mouseleave(function(e) {
+								if (self.mouseLeft && !self.mouseDrag) {
+									self.dragDimension();
+									self.regroup(e);
+									self.mouseDrag = true;
 								}
-							}
-							if (!selected)
-								elems.push(this);
-							self.select(elems);
-						} else if (selected && self.keyCtrl) {
-							self.elemsSelected.splice(self.elemsSelected.indexOf(this), 1);
-							self.unselect($this);
-							$(self.elemsSelected)
-								.children('.jqdnd-dragNumber')
-								.html(function(i) { return i + 1; });
-						}
+							})
+							.mousedown(function(e) {
+								e.preventDefault();
+								if (e.button === 0) {
+									var $this = $(this),
+										elems = [],
+										selected = $this.hasClass('selected');
+									if ($this.css('position') !== 'absolute') {
+										self.mouseLeft = true;
+										self.stopAnimations();
+									}
+									if (!selected && !self.keyCtrl) {
+										if (self.keyShift && self.elemsSelected.length)
+											elems.push(self.elemsSelected[self.elemsSelected.length - 1]);
+										self.unselectAll();
+									}
+									if (!selected || self.keyShift) {
+										if (self.keyShift) {
+											var elemA = self.elemsSelected[self.elemsSelected.length - 1] || elems[0];
+											if (elemA !== this) {
+												var	$drags = $('.jqdnd-drag', self.$parent),
+													AInd = $.inArray(elemA, $drags),
+													BInd = $.inArray(this, $drags),
+													incr = AInd < BInd ? 1 : -1,
+													i = AInd + incr;
+												for (; i !== BInd; i += incr)
+													if (!$drags.eq(i).hasClass('selected'))
+														elems.push($drags[i]);
+											}
+										}
+										if (!selected)
+											elems.push(this);
+										self.select(elems);
+									} else if (selected && self.keyCtrl) {
+										self.elemsSelected.splice(self.elemsSelected.indexOf(this), 1);
+										self.unselect($this);
+										$(self.elemsSelected)
+											.children('.jqdnd-dragNumber')
+											.html(function(i) { return i + 1; });
+									}
+								}
+							});
 					}
 				});
 		}
