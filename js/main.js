@@ -29,9 +29,9 @@ $(function() {
 			lg(printElems(drops));
 			lg(printElems(drags));
 		},
-		ondrop: function(drop, drags) {
+		ondrop: function(drops, drags) {
 			lg('<<< ondrop');
-			lg(printElems(drop));
+			lg(printElems(drops));
 			lg(printElems(drags));
 		},
 		ondragover: function(l, r) {

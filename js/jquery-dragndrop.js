@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 1.3
+	jQuery - drag 'n' drop - 1.4
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -14,6 +14,7 @@ $.fn.dragndrop.obj = function($parent, arg) {
 	this.$parent = $parent;
 	this.$drops = null;
 	this.$drags = null;
+	this.dragsParents = [];
 	this.$dragHoles = null;
 	this.elemsSelected = [];
 	this.elemsDetached = [];
@@ -182,18 +183,18 @@ $.fn.dragndrop.obj.prototype = {
 	},
 
 	detach: function() {
-		var self = this,
-			parents = [];
+		var self = this;
+		this.dragsParents.length = 0;
 		this.$dragHoles = $('<i class="jqdnd-dragHole">').insertBefore(this.elemsSelected);
 		$.each(this.elemsSelected, function() {
-			parents.push(this._pl = this.parentNode);
-			this._$prev = $(this).prev();
-			this._pos = $(this).offset();
+			var $this = $(this);
+			self.dragsParents.push(this._pl = this.parentNode);
+			this._$prev = $this.prev();
+			this._pos = $this.offset();
 		});
 		$.each(this.elemsSelected, function(i) {
 			self.elemsDetached.push(this);
-			var $this = $(this);
-			$this
+			$(this)
 				.prependTo(document.body) // we have to make 2 foreach because this detach...
 				.css('top',  this._pos.top  + 'px')
 				.css('left', this._pos.left + 'px');
@@ -201,17 +202,20 @@ $.fn.dragndrop.obj.prototype = {
 		this.$dragHoles
 			.css('width', this.dragW + 'px')
 			.animate({width: '0px'}, this.duration, 'swing');
+		$.unique(this.dragsParents);
 		// Events:ondrag
 		if (this.arg.ondrag)
 			this.arg.ondrag(
-				$.unique(parents),
+				this.dragsParents,
 				this.elemsDetached.slice()
 			);
 	},
 
-	attach: function() {
+	attach: function(dropWell) {
 		var self = this,
-			parent = this.elemsSelected[0]._$prev.parent()[0],
+			parents = dropWell
+				? [this.elemsSelected[0]._$prev.parent()[0]]
+				: this.dragsParents,
 			nbElems = this.elemsSelected.length,
 			i = 0;
 		this.$dragHoles.stop().animate({width: this.dragW + 'px'}, this.duration, 'swing');
@@ -229,10 +233,7 @@ $.fn.dragndrop.obj.prototype = {
 				if (++i === nbElems) {
 					// Events:ondrop
 					if (self.arg.ondrop)
-						self.arg.ondrop(
-							parent,
-							self.elemsSelected.slice()
-						);
+						self.arg.ondrop(parents, self.elemsSelected.slice());
 					self.elemsDetached.length = 0;
 					self.dropOver =
 					self.dragOverA =
@@ -345,14 +346,13 @@ $.fn.dragndrop.obj.prototype = {
 	dragStop: function() {
 		if (!this.mouseDrag)
 			return;
-		var self = this,
-			$this, $e,
-			objWidth,
-			insertFn,
-			elem, parent,
-			rankVid = 0;
 		this.mouseDrag = false;
-		if (this.dropOver || this.dragOverA || this.dragOverB) {
+		var dropWell = this.dropOver || this.dragOverA || this.dragOverB;
+		if (dropWell) {
+			var self = this,
+				insertFn,
+				elem, parent,
+				rankVid = 0;
 			function calcRank($e) {
 				for (; $e[0]; $e = $e.prev())
 					if ($e.hasClass('jqdnd-drag'))
@@ -383,8 +383,8 @@ $.fn.dragndrop.obj.prototype = {
 				pos.top += this.dragH;
 			}
 			this.$dragHoles.each(function(i) {
-				var v = self.elemsSelected[i];
-				$this = $(this);
+				var	v = self.elemsSelected[i],
+					$this = $(this);
 				v._pl = null;
 				v._$prev = $this;
 				v._pos.left = pos.left;
@@ -397,11 +397,11 @@ $.fn.dragndrop.obj.prototype = {
 				}
 			});
 		}
-		this.attach();
+		this.attach(dropWell);
 		// Events:ondropout, ondragout
-		if (self.arg.ondropout && self.dropOver)
-			self.arg.ondropout(self.dropOver);
-		if (self.arg.ondragout && (self.dragOverA || self.dragOverB))
-			self.arg.ondragout(self.dragOverA, self.dragOverB);
+		if (this.arg.ondropout && this.dropOver)
+			this.arg.ondropout(this.dropOver);
+		if (this.arg.ondragout && (this.dragOverA || this.dragOverB))
+			this.arg.ondragout(this.dragOverA, this.dragOverB);
 	}
 };

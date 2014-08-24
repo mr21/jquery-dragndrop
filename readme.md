@@ -1,4 +1,4 @@
-jQuery - drag 'n' drop - 1.3
+jQuery - drag 'n' drop - 1.4
 ============================
 
 Le plugin a besoin de ces deux fichiers (en plus de _jquery.js_):
@@ -34,9 +34,9 @@ __JS__
             console.log(drops);
             console.log(drags);
         },
-        ondrop: function(drop, drags) {
+        ondrop: function(drops, drags) {
             console.log('<<< ondrop');
-            console.log(drop);
+            console.log(drops);
             console.log(drags);
         }
     });
@@ -44,7 +44,8 @@ __JS__
 Historique des versions
 -----------------------
 
-* __1.3__ : .off() n'est plus utilisé lors du `DOMNodeInserted` sur les `jqdnd-drag`.
-* __1.2__ : Patch d'un bug en rapport avec les `jqdnd-drop` et le mousehover recodé.
+* __1.4__ : Patch du bug des parents lors du `ondrop` quand les élèments sont lachés nulle-part.
+* __1.3__ : `.off()` n'est plus utilisé lors du `DOMNodeInserted` sur les `jqdnd-drag`.
+* __1.2__ : Patch d'un bug en rapport avec les `jqdnd-drop` et le mouseover recodé.
 * __1.1__ : Patch d'un bug lié au `DOMNodeInserted`.
 * __1.0__ : Première version fonctionnelle!
