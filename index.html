@@ -8,86 +8,114 @@
 <meta property="og:url"         content="http://mr21.fr/jquery-dragndrop/"/>
 <meta property="og:image"       content="http://mr21.fr/jquery-dragndrop/thumbnail.jpg"/>
 <meta property="og:description" content="jQuery-dragndrop is a script for creating a multiple dragndrop with inlines elements."/>
-<link type="text/css" rel="stylesheet" href="css/global.css"/>
-<link type="text/css" rel="stylesheet" href="css/jquery-dragndrop.css"/>
-<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="js/jquery-dragndrop.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript">
-	/*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-418864-4', 'mr21.fr');
-	ga('send', 'pageview');*/
-</script>
+<!-- CSS -->
+<link type="text/css" rel="stylesheet" href="../jquery-selection/jquery-selection.css"/>
+<link type="text/css" rel="stylesheet" href="jquery-dragndrop.css"/>
+<link type="text/css" rel="stylesheet" href="../js-project-style.css"/>
+<link type="text/css" rel="stylesheet" href="style.css"/>
+<!-- JS -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script type="text/javascript" src="../jquery-selection/jquery-selection.js"></script>
+<script type="text/javascript" src="jquery-dragndrop.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<!--<script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-418864-4', 'mr21.fr');ga('send', 'pageview');</script>-->
 </head>
 <body>
-
 <div id="fb-root"></div>
-<script>
-	(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-	fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-</script>
+<!--<script>(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>-->
 
 <div id="global">
+	<div id="title">
+		<h1>
+			<span>jQuery - drag 'n' drop - 2.0</span>
+			<a class="github" title="Watch it on GitHub" target="_blank" href="https://github.com/Mr21/jquery-dragndrop"></a>
+			<!-- <div class="fb-like" data-href="http://mr21.fr/jquery-dragndrop/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div> -->
+		</h1>
+	</div>
 
-	<h1>
-		jQuery - drag 'n' drop
-		<a target="_blank" href="https://github.com/Mr21/jquery-dragndrop">GitHub</a>
-		<div class="fb-like" data-href="http://mr21.fr/jquery-dragndrop/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-	</h1>
+	<div class="rub" id="what">
+		<h2><a href="#whatIsIt" name="whatIsIt">What is it&nbsp;?</a></h2>
+		<p>
+			<img src="thumbnail.jpg"/>
+			This plugin offers a fluide drag n drop with great visual feedback.<br/>
+			<b>jquery-dragndrop</b> can works alone but if you want the possibility
+			to select several items in the same time with the Ctrl/⌘ and Shift keys,
+			you have to include also this one&nbsp;: <a href="../jquery-selection">jquery-selection</a>.<br/>
+			<br/>
+			This two plugins work great together&nbsp;!
+		</p>
+	</div>
 
-	<ul class="features">
-		<li>Hold the <b>Ctrl key</b> (or the <b>⌘ key</b>) to select multiple items simultaneously.</li>
-		<li>Hold the <b>Shift key</b> to select multiple contiguous items.</li>
-		<li>The combinaison of the <b>Shift key</b> with the <b>Ctrl/⌘ key</b> works fine.</li>
-		<li>You can open the file <a href="js/main.js"><b>main.js</b></a> and the JavaScript console to understand the events.</li>
-	</ul>
+	<div class="rub" id="needs">
+		<h2><a href="#needs" name="needs">Needs</a></h2>
+		<p>This plugin need <b>3</b> or <b>5</b> files&nbsp;:</p>
+		<ul>
+			<li><a target="_blank" href="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js">jquery.js</a> (obviously)</li>
+			<li><a target="_blank" href="jquery-dragndrop.js">jquery-dragndrop.js</a></li>
+			<li><a target="_blank" href="jquery-dragndrop.css">jquery-dragndrop.css</a></li>
+			<li><a target="_blank" href="../jquery-selection/jquery-selection.js">jquery-selection.js</a> (optional)</li>
+			<li><a target="_blank" href="../jquery-selection/jquery-selection.css">jquery-selection.css</a> (optional)</li>
+		</ul>
+	</div>
 
-	<div id="dragndrop">
+	<div class="rub" id="help">
+		<h2><a href="#howToUseIt" name="howToUseIt">How to use it&nbsp;?</a></h2>
+		<script src="https://gist.github.com/Mr21/4c09eabd45cbb06a02c4.js"></script>
+	</div>
 
-		<div class="jqdnd-drop A">
-			<b class="jqdnd-drag" style="background-image:url(img/a_bug_s_life.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/brave.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/cars.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/the_incredibles.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/monsters_inc.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/finding_nemo.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/planes.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/ratatouille.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/toy_story.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/up.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/wall-e.jpg)"></b>
+	<div class="rub" id="versions">
+		<h2><a href="#whatsNew" name="whatsNew">What's new&nbsp;?</a></h2>
+		<ul>
+			<li><b>2.0</b>Le plugin est séparé en deux: <b>jquery-selection</b> / <b>jquery-dragndrop</b>.</li>
+			<li><b>1.4</b>Patch du bug des parents lors du <span class="code">ondrop</span> quand les élèments sont lachés nulle-part.</li>
+			<li><b>1.3</b><span class="code">.off()</span> n'est plus utilisé lors du <span class="code">DOMNodeInserted</span> sur les items draggables.</li>
+			<li><b>1.2</b>Patch d'un bug en rapport avec les items draggables et le mouseover recodé.</li>
+			<li><b>1.1</b>Patch d'un bug lié au <span class="code">DOMNodeInserted</span>.</li>
+			<li><b>1.0</b>Première version fonctionnelle&nbsp;!</li>
+		</ul>
+	</div>
+
+	<div class="rub" id="demo">
+		<h2><a href="#demo" name="demo">Demo</a></h2>
+		<div id="dragndrop">
+			<div class="jqdragndrop-drop A">
+				<b class="jqselection-selectable" style="background-image:url(img/a_bug_s_life.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/brave.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/cars.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/the_incredibles.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/monsters_inc.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/finding_nemo.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/planes.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/ratatouille.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/toy_story.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/up.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/wall-e.jpg)"></b>
+			</div>
+			<div class="jqdragndrop-drop B">
+				<b class="jqselection-selectable" style="background-image:url(img/antz.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/chicken_run.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/how_to_train_your_dragon.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/kung_fu_panda.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/madagascar.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/puss_in_boots.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/rise_of_the_guardians.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/shrek.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/turbo.jpg)"></b>
+			</div>
+			<div class="jqdragndrop-drop C">
+				<b class="jqselection-selectable" style="background-image:url(img/bolt.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/chicken_little.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/frozen.jpg)"></b>
+				<b class="jqselection-selectable" style="background-image:url(img/wreck-it_ralph.jpg)"></b>
+			</div>
+			<div class="jqdragndrop-drop D">
+			</div>
 		</div>
-
-		<div class="jqdnd-drop B">
-			<b class="jqdnd-drag" style="background-image:url(img/antz.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/chicken_run.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/how_to_train_your_dragon.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/kung_fu_panda.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/madagascar.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/puss_in_boots.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/rise_of_the_guardians.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/shrek.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/turbo.jpg)"></b>
-		</div>
-
-		<div class="jqdnd-drop C">
-			<b class="jqdnd-drag" style="background-image:url(img/bolt.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/chicken_little.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/frozen.jpg)"></b>
-			<b class="jqdnd-drag" style="background-image:url(img/wreck-it_ralph.jpg)"></b>
-		</div>
-
-		<div class="jqdnd-drop D">
-		</div>
-
+		<p>
+			Here, I have also included the <a href="../jquery-selection">jquery-selection</a> plugin,
+			so we can select more than one items.<br/>
+			Open the <b>debug-console</b> to watch the events in action.<br/>
+		</p>
 	</div>
 
 </div>
