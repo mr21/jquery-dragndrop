@@ -7,26 +7,3 @@
 		display: block;
 		clear: both;
 		}
-	.jqdragndrop-drop {
-		display: inline-block;
-		width: 275px; /* 4*64=256 + 19 */
-		height: 180px; /* 5*36=180 */
-		margin: 5px;
-		border-radius: 2px;
-		overflow-y: scroll;
-		background: rgba(0,0,0,.1);
-		}
-		.jqdragndrop-drop.hover {
-			box-shadow: 0 0 20px rgba(0,0,0,.2);
-			background: #fff;
-			}
-.jqselection-selectable,
-.jqdragndrop-hole {
-	height: 36px;
-	}
-.jqselection-selectable {
-	width: 64px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	cursor: pointer;
-	}

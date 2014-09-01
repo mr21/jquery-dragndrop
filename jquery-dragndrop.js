@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 2.0
+	jQuery - drag 'n' drop - 2.1
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -34,15 +34,17 @@ $.plugin_dragndrop.obj = function(jq_parent, options) {
 	this.mouseIncX = 0;
 	this.mouseIncY = 0;
 	this.ms = 200;
+	this.app = window;
 
-	if (!$.plugin_selection) {
+	if (!$.plugin_selection || options.noSelection) {
 		this.el_selected = [];
 	} else {
-		this.plugin_selection = $.plugin_selection(jq_parent, {
-			selectableClass : this.dragClass,
-			selectedClass : options.dragSelectedClass,
-			numberClass : options.dragSelectedClass
-		});
+		this.plugin_selection =
+			$.plugin_selection(jq_parent, {
+				selectableClass : this.dragClass,
+				selectedClass : options.dragSelectedClass,
+				numberClass : options.dragSelectedClass
+			});
 		this.el_selected = this.plugin_selection.getArraySelection();
 	}
 
@@ -86,6 +88,11 @@ $.plugin_dragndrop.obj = function(jq_parent, options) {
 $.plugin_dragndrop.obj.prototype = {
 	// public ********************
 	selection: function() { return this.plugin_selection; },
+	applyThis: function(app) {
+		if (app !== undefined)
+			return this.app = app, this;
+		return this.app;
+	},
 	duration: function(ms) {
 		if (ms !== undefined)
 			return this.ms = ms, this;
@@ -100,6 +107,37 @@ $.plugin_dragndrop.obj.prototype = {
 	onDropOut:  function(cb) { this.cbDropOut  = cb; return this; },
 
 	// private ********************
+	ev_onDrag: function() {
+		if (this.cbDrag)
+			this.cbDrag.call(this.app, $(this.el_dragsParents), $(this.el_detached));
+	},
+	ev_onDrop: function(par) {
+		if (this.cbDrop)
+			this.cbDrop.call(this.app, $(par), $(this.el_selected));
+	},
+	ev_onDragOver: function(l, r) {
+		l = $(l).addClass(this.dragClass + 'HoverL');
+		r = $(r).addClass(this.dragClass + 'HoverR');
+		if (this.cbDragOver)
+			this.cbDragOver.call(this.app, l, r);
+	},
+	ev_onDragOut:  function(l, r) {
+		l = $(l).removeClass(this.dragClass + 'HoverL');
+		r = $(r).removeClass(this.dragClass + 'HoverR');
+		if (this.cbDragOut)
+			this.cbDragOut.call(this.app, l, r);
+	},
+	ev_onDropOver: function(d) {
+		d = $(d).addClass(this.dropClass + 'Hover');
+		if (this.cbDropOver)
+			this.cbDropOver.call(this.app, d);
+	},
+	ev_onDropOut:  function(d) {
+		d = $(d).removeClass(this.dropClass + 'Hover');
+		if (this.cbDropOut)
+			this.cbDropOut.call(this.app, d);
+	},
+
 	dragDimension: function() {
 		this.dragW = this.jq_drags.width();
 		this.dragH = this.jq_drags.height();
@@ -145,7 +183,7 @@ $.plugin_dragndrop.obj.prototype = {
 	detach: function() {
 		var self = this;
 		this.el_dragsParents.length = 0;
-		this.jq_dragHoles = $('<i>').addClass(this.dragHoleClass).insertBefore(this.el_selected);
+		this.jq_dragHoles = $('<div>').addClass(this.dragHoleClass).insertBefore(this.el_selected);
 		$.each(this.el_selected, function() {
 			var $this = $(this);
 			self.el_dragsParents.push(this._pl = this.parentNode);
@@ -162,13 +200,8 @@ $.plugin_dragndrop.obj.prototype = {
 		this.jq_dragHoles
 			.css('width', this.dragW + 'px')
 			.animate({width: '0px'}, this.ms, 'swing');
-		$.unique(this.el_dragsParents);
-		// Events:ondrag
-		if (this.cbDrag)
-			this.cbDrag(
-				this.el_dragsParents,
-				this.el_detached.slice()
-			);
+		$.unique(this.el_dragsParents)
+		this.ev_onDrag();
 	},
 
 	attach: function(dropWell) {
@@ -191,9 +224,7 @@ $.plugin_dragndrop.obj.prototype = {
 					.insertAfter(this._$prev);
 				this._$prev.remove();
 				if (++i === nbElems) {
-					// Events:ondrop
-					if (self.cbDrop)
-						self.cbDrop(parents, self.el_selected.slice());
+					self.ev_onDrop(parents);
 					self.el_detached.length = 0;
 					self.el_dropOver =
 					self.el_dragOverA =
@@ -278,18 +309,16 @@ $.plugin_dragndrop.obj.prototype = {
 				drop = (dragA && dragA.parentNode) || (dragB && dragB.parentNode);
 		}
 		// Events:ondragover/out, ondropover/out
-		if (this.cbDropOut  && this.el_dropOver && drop !== this.el_dropOver)
-			this.cbDropOut(this.el_dropOver);
-		if (this.cbDropOver && drop && drop !== this.el_dropOver)
-			this.cbDropOver(drop);
-		if (this.cbDragOut && (
-			(this.el_dragOverA && dragA !== this.el_dragOverA) ||
-			(this.el_dragOverB && dragB !== this.el_dragOverB)))
-				this.cbDragOut(this.el_dragOverA, this.el_dragOverB);
-		if (this.cbDragOver && (
-			(dragA && dragA !== this.el_dragOverA) ||
-			(dragB && dragB !== this.el_dragOverB)))
-				this.cbDragOver(dragA, dragB);
+		if (this.el_dropOver && drop !== this.el_dropOver)
+			this.ev_onDropOut(this.el_dropOver);
+		if (drop && drop !== this.el_dropOver)
+			this.ev_onDropOver(drop);
+		if ((this.el_dragOverA && dragA !== this.el_dragOverA) ||
+			(this.el_dragOverB && dragB !== this.el_dragOverB))
+			this.ev_onDragOut(this.el_dragOverA, this.el_dragOverB);
+		if ((dragA && dragA !== this.el_dragOverA) ||
+			(dragB && dragB !== this.el_dragOverB))
+			this.ev_onDragOver(dragA, dragB);
 		// save the values
 		this.el_dropOver = drop;
 		this.el_dragOverA = dragA;
@@ -361,9 +390,9 @@ $.plugin_dragndrop.obj.prototype = {
 		if (!this.plugin_selection)
 			this.el_selected.length = 0;
 		// Events:ondropout, ondragout
-		if (this.cbDropOut && this.el_dropOver)
-			this.cbDropOut(this.el_dropOver);
-		if (this.cbDragOut && (this.el_dragOverA || this.el_dragOverB))
-			this.cbDragOut(this.el_dragOverA, this.el_dragOverB);
+		if (this.el_dropOver)
+			this.ev_onDropOut(this.el_dropOver);
+		if (this.el_dragOverA || this.el_dragOverB)
+			this.ev_onDragOut(this.el_dragOverA, this.el_dragOverB);
 	}
 };
