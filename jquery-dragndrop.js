@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 2.1
+	jQuery - drag 'n' drop - 2.2
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -229,6 +229,8 @@ $.plugin_dragndrop.obj.prototype = {
 					self.el_dropOver =
 					self.el_dragOverA =
 					self.el_dragOverB = null;
+					if (!self.plugin_selection)
+						self.el_selected.length = 0;
 				}
 			})
 		});
@@ -387,8 +389,6 @@ $.plugin_dragndrop.obj.prototype = {
 			});
 		}
 		this.attach(dropWell);
-		if (!this.plugin_selection)
-			this.el_selected.length = 0;
 		// Events:ondropout, ondragout
 		if (this.el_dropOver)
 			this.ev_onDropOut(this.el_dropOver);
