@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 2.2
+	jQuery - drag 'n' drop - 2.3
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -84,7 +84,6 @@ $.plugin_dragndrop.obj = function(jq_parent, options) {
 		});
 };
 
-// Methodes
 $.plugin_dragndrop.obj.prototype = {
 	// public ********************
 	selection: function() { return this.plugin_selection; },
@@ -200,7 +199,7 @@ $.plugin_dragndrop.obj.prototype = {
 		this.jq_dragHoles
 			.css('width', this.dragW + 'px')
 			.animate({width: '0px'}, this.ms, 'swing');
-		$.unique(this.el_dragsParents)
+		$.unique(this.el_dragsParents);
 		this.ev_onDrag();
 	},
 
@@ -354,12 +353,14 @@ $.plugin_dragndrop.obj.prototype = {
 				elem = this.el_dragOverB;
 				calcRank($(elem).prev());
 				parent = elem.parentNode;
-			} else {
-				insertFn = 'appendTo';
+			} else if (this.el_dragOverA) {
+				insertFn = 'insertAfter';
 				elem = this.el_dragOverA;
 				calcRank($(elem));
-				if (this.el_dropOver)
-					elem = this.el_dropOver;
+				parent = elem.parentNode;
+			} else {
+				insertFn = 'appendTo';
+				elem = this.el_dropOver;
 				parent = elem;
 			}
 			var nbVidsW = parseInt(parent.offsetWidth / this.dragW),
