@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 2.3
+	jQuery - drag 'n' drop - 2.4
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -33,7 +33,7 @@ $.plugin_dragndrop.obj = function(jq_parent, options) {
 	this.mouseY = 0;
 	this.mouseIncX = 0;
 	this.mouseIncY = 0;
-	this.ms = 200;
+	this.ms = options.duration === undefined ? 200 : options.duration;
 	this.app = window;
 
 	if (!$.plugin_selection || options.noSelection) {
@@ -70,9 +70,8 @@ $.plugin_dragndrop.obj = function(jq_parent, options) {
 
 	$(document)
 		.mouseup(function() {
-			if (self.mouseDrag) {
+			if (self.mouseDrag)
 				self.dragStop();
-			}
 			self.mouseLeft = false;
 		})
 		.mousemove(function(e) {
@@ -98,12 +97,12 @@ $.plugin_dragndrop.obj.prototype = {
 		return this.ms;
 	},
 	// events
-	onDrag:     function(cb) { this.cbDrag     = cb; return this; },
-	onDrop:     function(cb) { this.cbDrop     = cb; return this; },
-	onDragOver: function(cb) { this.cbDragOver = cb; return this; },
-	onDragOut:  function(cb) { this.cbDragOut  = cb; return this; },
-	onDropOver: function(cb) { this.cbDropOver = cb; return this; },
-	onDropOut:  function(cb) { this.cbDropOut  = cb; return this; },
+	onDrag:     function(f) { this.cbDrag     = f; return this; },
+	onDrop:     function(f) { this.cbDrop     = f; return this; },
+	onDragOver: function(f) { this.cbDragOver = f; return this; },
+	onDragOut:  function(f) { this.cbDragOut  = f; return this; },
+	onDropOver: function(f) { this.cbDropOver = f; return this; },
+	onDropOut:  function(f) { this.cbDropOut  = f; return this; },
 
 	// private ********************
 	ev_onDrag: function() {
@@ -389,11 +388,11 @@ $.plugin_dragndrop.obj.prototype = {
 				}
 			});
 		}
-		this.attach(dropWell);
 		// Events:ondropout, ondragout
 		if (this.el_dropOver)
 			this.ev_onDropOut(this.el_dropOver);
 		if (this.el_dragOverA || this.el_dragOverB)
 			this.ev_onDragOut(this.el_dragOverA, this.el_dragOverB);
+		this.attach(dropWell);
 	}
 };
