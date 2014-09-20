@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 2.4
+	jQuery - drag 'n' drop - 2.5
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -136,9 +136,9 @@ $.plugin_dragndrop.obj.prototype = {
 			this.cbDropOut.call(this.app, d);
 	},
 
-	dragDimension: function() {
-		this.dragW = this.jq_drags.width();
-		this.dragH = this.jq_drags.height();
+	dragDimension: function(jq_drag) {
+		this.dragW = jq_drag.width();
+		this.dragH = jq_drag.height();
 	},
 
 	nodeEvents: function(drop, drag) {
@@ -151,7 +151,8 @@ $.plugin_dragndrop.obj.prototype = {
 				.each(function() {
 					if (!this._jqdragndrop_ready) {
 						this._jqdragndrop_ready = true;
-						$(this)
+						var $this = $(this);
+						$this
 							.mouseup(function(e) {
 								if (!self.mouseDrag)
 									e.stopPropagation();
@@ -161,14 +162,14 @@ $.plugin_dragndrop.obj.prototype = {
 								if (self.mouseLeft && !self.mouseDrag) {
 									if (!self.plugin_selection)
 										self.el_selected.push(this);
-									self.dragDimension();
+									self.dragDimension($this);
 									self.regroup(e);
 									self.mouseDrag = true;
 								}
 							})
 							.mousedown(function(e) {
 								e.preventDefault();
-								if (e.button === 0 && $(this).css('position') !== 'absolute') {
+								if (e.button === 0 && $this.css('position') !== 'absolute') {
 									self.mouseLeft = true;
 									self.stopAnimations();
 								}
