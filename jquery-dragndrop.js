@@ -1,5 +1,5 @@
 /*
-	jQuery - drag 'n' drop - 2.5
+	jQuery - drag 'n' drop - 2.6
 	https://github.com/Mr21/jquery-dragndrop
 */
 
@@ -153,9 +153,7 @@ $.plugin_dragndrop.obj.prototype = {
 						this._jqdragndrop_ready = true;
 						var $this = $(this);
 						$this
-							.mouseup(function(e) {
-								if (!self.mouseDrag)
-									e.stopPropagation();
+							.mouseup(function() {
 								self.mouseLeft = false;
 							})
 							.mouseleave(function(e) {
