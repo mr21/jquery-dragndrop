@@ -16,7 +16,9 @@ function printElems(d) {
 }
 
 $(function() {
-	$.plugin_dragndrop(document.body)
+	$('#moreAt')[top.location === self.location ? 'show' : 'remove']();
+
+	$.plugin_dragndrop('#dragndrop')
 		.duration(150)
 		.onDrag(function(drops, drags) {
 			lg('>>> ondrag');
