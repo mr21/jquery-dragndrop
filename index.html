@@ -1,142 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>jQuery - Drag 'n' Drop</title>
-<meta charset="utf-8"/>
-<!-- Facebook -->
-<meta property="og:title"       content="jQuery - drag 'n' drop"/>
-<meta property="og:url"         content="http://mr21.fr/jquery-dragndrop/"/>
-<meta property="og:image"       content="http://mr21.fr/jquery-dragndrop/thumbnail.jpg"/>
-<meta property="og:description" content="jQuery-dragndrop is a script for creating a multiple dragndrop with inlines elements."/>
-<!-- CSS -->
-<link type="text/css" rel="stylesheet" href="../fa/css/font-awesome.css"/>
-<link type="text/css" rel="stylesheet" href="../jquery-selection/jquery-selection.css"/>
-<link type="text/css" rel="stylesheet" href="jquery-dragndrop.css"/>
-<link type="text/css" rel="stylesheet" href="../js-project-style.css"/>
-<link type="text/css" rel="stylesheet" href="style.css"/>
-<!-- JS -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-<script type="text/javascript" src="../jquery-selection/jquery-selection.js"></script>
-<script type="text/javascript" src="jquery-dragndrop.js"></script>
-<script type="text/javascript" src="main.js"></script>
-<!--<script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-418864-4', 'mr21.fr');ga('send', 'pageview');</script>-->
+	<title>jQuery - Drag 'n' Drop</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="../jquery-selection/jquery-selection.css"/>
+	<link rel="stylesheet" href="jquery-dragndrop.css"/>
+	<style type="text/css">
+		body {
+			text-align: center;
+			}
+			#dragndrop:after {
+				content: "";
+				display: block;
+				clear: both;
+				}
+	</style>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+	<script src="../jquery-selection/jquery-selection.js"></script>
+	<script src="jquery-dragndrop.js"></script>
+	<script src="main.js"></script>
 </head>
 <body>
-<div id="fb-root"></div>
-<!--<script type="text/javascript">(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>-->
-
-<div id="global">
-
-	<div id="header">
-		<h1>
-			<span>jQuery - drag 'n' drop<b>2.6</b></span>
-			<div class="fb-like" data-href="http://mr21.fr/jquery-dragndrop/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-		</h1>
-		<div class="menu">
-			<hr/>
-			<a href="#whatIsIt"   class="fa fa-info-circle" title="What is it ?"></a>
-			<a href="#needs"      class="fa fa-folder-open" title="Needs"></a>
-			<a href="#howToUseIt" class="fa fa-code"        title="How to use it ?"></a>
-			<a href="#whatsNew"   class="fa fa-newspaper-o" title="What's new ?"></a>
-			<a href="#demo"       class="fa fa-flask"       title="Demo"></a>
-			<hr class="sep"/>
-			<a href="https://github.com/Mr21/jquery-dragndrop" class="fa fa-github" title="Watch it on GitHub" target="_blank"></a>
-			<hr/>
-		</div>
+	<div class="jqdragndrop-drop A">
+		<b class="jqselection-selectable" style="background-image:url(img/a_bug_s_life.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/brave.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/cars.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/the_incredibles.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/monsters_inc.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/finding_nemo.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/planes.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/ratatouille.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/toy_story.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/up.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/wall-e.jpg)"></b>
 	</div>
-
-	<div class="rub" id="what">
-		<h2><a href="#whatIsIt" name="whatIsIt"><i class="fa fa-info-circle"></i>What is it&nbsp;?</a></h2>
-		<p>
-			<img src="thumbnail.jpg"/>
-			This plugin offers a fluide drag n drop with great visual feedback.<br/>
-			<b>jquery-dragndrop</b> can works alone but if you want the possibility
-			to select several items in the same time with the Ctrl/⌘ and Shift keys,
-			you have to include also this one&nbsp;: <a href="../jquery-selection">jquery-selection</a>.<br/>
-			<br/>
-			This two plugins work great together&nbsp;!
-		</p>
+	<div class="jqdragndrop-drop B">
+		<b class="jqselection-selectable" style="background-image:url(img/antz.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/chicken_run.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/how_to_train_your_dragon.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/kung_fu_panda.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/madagascar.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/puss_in_boots.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/rise_of_the_guardians.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/shrek.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/turbo.jpg)"></b>
 	</div>
-
-	<div class="rub" id="needs">
-		<h2><a href="#needs" name="needs"><i class="fa fa-folder-open"></i>Needs</a></h2>
-		<p>This plugin need <b>3</b> or <b>5</b> files&nbsp;:</p>
-		<ul>
-			<li><a target="_blank" href="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js">jquery.js</a> (obviously)</li>
-			<li><a target="_blank" href="jquery-dragndrop.js">jquery-dragndrop.js</a></li>
-			<li><a target="_blank" href="jquery-dragndrop.css">jquery-dragndrop.css</a></li>
-			<li><a target="_blank" href="../jquery-selection/jquery-selection.js">jquery-selection.js</a> (optional)</li>
-			<li><a target="_blank" href="../jquery-selection/jquery-selection.css">jquery-selection.css</a> (optional)</li>
-		</ul>
+	<div class="jqdragndrop-drop C">
+		<b class="jqselection-selectable" style="background-image:url(img/bolt.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/chicken_little.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/frozen.jpg)"></b>
+		<b class="jqselection-selectable" style="background-image:url(img/wreck-it_ralph.jpg)"></b>
 	</div>
-
-	<div class="rub" id="help">
-		<h2><a href="#howToUseIt" name="howToUseIt"><i class="fa fa-code"></i>How to use it&nbsp;?</a></h2>
-		<script src="https://gist.github.com/Mr21/4c09eabd45cbb06a02c4.js"></script>
+	<div class="jqdragndrop-drop D">
 	</div>
-
-	<div class="rub" id="versions">
-		<h2><a href="#whatsNew" name="whatsNew"><i class="fa fa-newspaper-o"></i>What's new&nbsp;?</a></h2>
-		<ul>
-			<li><b>2.6</b>Patch&nbsp;: a call to <span class="code">.stopPropagation()</span> was left in the code.</li>
-			<li><b>2.5</b>Patch&nbsp;: bug to calculate the dimensions of dragguable elements when the first one is deleted.</li>
-			<li><b>2.4</b>Patch&nbsp;: bug on the call of callbacks if the <span class="code">duration</span> is set to <span class="code">0</span>.</li>
-			<li><b>2.3</b>Patch&nbsp;: bug on the <span class="code">onDrop</span> difference between <span class="code">.insertAfter</span> / <span class="code">.appendTo</span>.</li>
-			<li><b>2.2</b>Patch&nbsp;: bug on the <span class="code">onDrop</span> when the <b>jquery-selection</b> isn't used.</li>
-			<li><b>2.1</b><span class="code">.applyThis()</span> + CSS classes like&nbsp;: <span class="code">.*Hover</span></li>
-			<li><b>2.0</b>The plugin is cut in two: <b>jquery-selection</b> / <b>jquery-dragndrop</b>.</li>
-			<li><b>1.4</b>Patch&nbsp;: bug of the parentNode on the <span class="code">onDrop</span> when the items are drop nowhere.</li>
-			<li><b>1.3</b><span class="code">.off()</span> isn't used anymore in the <span class="code">DOMNodeInserted</span> of the draggable items.</li>
-			<li><b>1.2</b>Patch&nbsp;: bug of the draggable items and the <span class="code">mouseover</span>.</li>
-			<li><b>1.1</b>Patch&nbsp;: bug on the <span class="code">DOMNodeInserted</span>.</li>
-			<li><b>1.0</b>First version&nbsp;!</li>
-		</ul>
-	</div>
-
-	<div class="rub" id="demo">
-		<h2><a href="#demo" name="demo"><i class="fa fa-flask"></i>Demo</a></h2>
-		<p>
-			Here, I have also included the <a href="../jquery-selection">jquery-selection</a> plugin,
-			so we can select more than one items.<br/>
-			Open the <b>debug-console</b> to watch the events in action.<br/>
-		</p>
-		<div id="dragndrop">
-			<div class="jqdragndrop-drop A">
-				<b class="jqselection-selectable" style="background-image:url(img/a_bug_s_life.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/brave.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/cars.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/the_incredibles.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/monsters_inc.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/finding_nemo.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/planes.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/ratatouille.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/toy_story.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/up.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/wall-e.jpg)"></b>
-			</div>
-			<div class="jqdragndrop-drop B">
-				<b class="jqselection-selectable" style="background-image:url(img/antz.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/chicken_run.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/how_to_train_your_dragon.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/kung_fu_panda.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/madagascar.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/puss_in_boots.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/rise_of_the_guardians.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/shrek.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/turbo.jpg)"></b>
-			</div>
-			<div class="jqdragndrop-drop C">
-				<b class="jqselection-selectable" style="background-image:url(img/bolt.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/chicken_little.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/frozen.jpg)"></b>
-				<b class="jqselection-selectable" style="background-image:url(img/wreck-it_ralph.jpg)"></b>
-			</div>
-			<div class="jqdragndrop-drop D">
-			</div>
-		</div>
-	</div>
-
-</div>
-
 </body>
 </html>

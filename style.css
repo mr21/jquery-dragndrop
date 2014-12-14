@@ -1,9 +1,0 @@
-#dragndrop {
-	width: 100%;
-	text-align: center;
-	}
-	#dragndrop:after {
-		content: "";
-		display: block;
-		clear: both;
-		}

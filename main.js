@@ -16,7 +16,7 @@ function printElems(d) {
 }
 
 $(function() {
-	$.plugin_dragndrop($('#dragndrop'))
+	$.plugin_dragndrop(document.body)
 		.duration(150)
 		.onDrag(function(drops, drags) {
 			lg('>>> ondrag');
