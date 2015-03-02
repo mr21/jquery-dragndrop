@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>jQuery - Drag 'n' Drop</title>
+	<title>jQuery - dragndrop - 2.6</title>
 	<meta charset="utf-8"/>
+	<meta property="og:url" content="http://mr21.fr/jquery-dragndrop/"/>
+	<link rel="stylesheet" href="../_/fa/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../_/header.css"/>
 	<link rel="stylesheet" href="../jquery-selection/jquery-selection.css"/>
 	<link rel="stylesheet" href="jquery-dragndrop.css"/>
-	<style type="text/css">
-		body { font: 14px sans-serif; }
-		#dragndrop { text-align: center; }
-	</style>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="../_/header.js"></script>
 	<script src="../jquery-selection/jquery-selection.js"></script>
 	<script src="jquery-dragndrop.js"></script>
 	<script src="main.js"></script>
+	<style>
+	body {
+		margin: 0;
+		background: #444;
+		}
+	#dragndrop {
+		margin-top: 20px;
+		text-align: center;
+		}
+	.jqdragndrop-drop {
+		transition: background .2s ease;
+		background: rgba(0,0,0,.3);
+		}
+		.jqdragndrop-dropHover {
+			box-shadow: 0 0 20px rgba(0,0,0,.2);
+			background: rgba(0,0,0,.5);
+			}
+	</style>
 </head>
 <body>
-	<div id="moreAt" style="display:none">
-		More infos at
-		<a href="http://mr21.fr/jquery-dragndrop/"><b>mr21.fr/jquery-dragndrop</b></a>
-		<br/><br/>
+	<div id="header">
+		<i class="fa fa-fw fa-plug"></i>
+		<h1>jQuery - dragndrop - 2.6</h1>
 	</div>
+
 	<div id="dragndrop">
 		<div class="jqdragndrop-drop A">
 			<b class="jqselection-selectable" style="background-image:url(img/a_bug_s_life.jpg)"></b>
